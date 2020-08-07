@@ -1,0 +1,85 @@
+%load_ext sql
+
+# Enter the connection string for your Db2 on Cloud database instance below
+# %sql ibm_db_sa://my-username:my-password@my-hostname:my-port/my-db-name
+%sql ibm_db_sa://msw41224:7%2Bf3v1w894vx76m2@dashdb-txn-sbox-yp-dal09-14.services.dal.bluemix.net:50000/BLUDB
+
+# type in your query to retri%seve list of all tables in the database for your db2 schema (username)
+%sql select * from SYSCAT.TABLES where TABNAME = 'SCHOOLS'
+
+
+
+# type in your query to retrieve the number of columns in the SCHOOLS table
+%sql select count(*) FROM SYSCAT.COLUMNS WHERE TABNAME = 'SCHOOLS'
+
+
+# type in your query to retrieve all column names in the SCHOOLS table along with their datatypes and length
+%sql select COLNAME, TYPENAME, LENGTH from SYSCAT.COLUMNS where TABNAME = 'SCHOOLS'
+
+
+
+Problem 1¶
+How many Elementary Schools are in the dataset?
+%sql select count(*) from SCHOOLS where "Elementary, Middle, or High School" = 'ES'
+
+Problem 2
+What is the highest Safety Score?
+%sql select max(safety_score) from SCHOOLS 
+
+Problem 3
+Which schools have highest Safety Score?
+%sql select NAME_OF_SCHOOL from SCHOOLS where safety_score = (select max(safety_score) from SCHOOLS )
+
+Problem 4
+What are the top 10 schools with the highest "Average Student Attendance"?
+%sql select name_of_school, AVERAGE_STUDENT_ATTENDANCE from schools order by AVERAGE_STUDENT_ATTENDANCE DESC NULLS LAST LIMIT 10
+
+Problem 5
+Retrieve the list of 5 Schools with the lowest Average Student Attendance sorted in ascending order based on attendance
+%sql select name_of_school, AVERAGE_STUDENT_ATTENDANCE from schools order by AVERAGE_STUDENT_ATTENDANCE ASC limit 5
+
+Problem 6
+Now remove the '%' sign from the above result set for Average Student Attendance column
+%sql select name_of_school, REPLACE(AVERAGE_STUDENT_ATTENDANCE, '%', '') from schools order by AVERAGE_STUDENT_ATTENDANCE ASC limit 5
+
+Problem 7
+Which Schools have Average Student Attendance lower than 70%
+%sql select name_of_school, AVERAGE_STUDENT_ATTENDANCE from schools where DECIMAL(REPLACE(AVERAGE_STUDENT_ATTENDANCE, '%', '')) < 70
+
+Problem 8
+Get the total College Enrollment for each Community Area
+%sql select COMMUNITY_AREA_NAME, sum(COLLEGE_ENROLLMENT) as TOTAL_ENROLLMENT from schools group by COMMUNITY_AREA_NAME
+
+Problem 9
+Get the 5 Community Areas with the least total College Enrollment sorted in ascending order
+%sql select COMMUNITY_AREA_NAME, sum(COLLEGE_ENROLLMENT) as TOTAL_ENROLLMENT from schools group by COMMUNITY_AREA_NAME ORDER BY TOTAL_ENROLLMENT ASC limit 5
+
+Problem 10
+Get the hardship index for the community area which has College Enrollment of 4638
+%%sql 
+select hardship_index 
+   from chicago_socioeconomic_data 
+   inner join schools 
+   on chicago_socioeconomic_data.ca = schools.community_area_number 
+   where college_enrollment = 4368
+
+Problem 11
+Get the hardship index for the community area which has the highest value for College Enrollment
+%%sql select hardship_index , schools.COMMUNITY_AREA_NAME, sum(schools.COLLEGE_ENROLLMENT) as total_enrollment
+   from chicago_socioeconomic_data 
+   inner join schools 
+   on chicago_socioeconomic_data.ca = schools.community_area_number 
+    group by hardship_index, schools.COMMUNITY_AREA_NAME
+    order by total_enrollment DESC limit 1
+	
+#Solution from juptyer notebook. I believe this one doesn't factor in total enrollments
+%sql select ca, community_area_name, hardship_index from chicago_socioeconomic_data \
+where ca in \
+( select community_area_number from schools order by college_enrollment desc limit 1 )
+
+#My version for this lab
+%%sql select hardship_index , schools.COMMUNITY_AREA_NAME, schools.COLLEGE_ENROLLMENT
+   from chicago_socioeconomic_data 
+   inner join schools 
+   on chicago_socioeconomic_data.ca = schools.community_area_number 
+    order by schools.COLLEGE_ENROLLMENT DESC limit 1
