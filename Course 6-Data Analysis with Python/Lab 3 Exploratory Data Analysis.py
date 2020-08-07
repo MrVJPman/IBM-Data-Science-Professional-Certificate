@@ -88,8 +88,7 @@ drive_wheels_counts.rename(columns={'drive-wheels': 'value_counts'}, inplace=Tru
 drive_wheels_counts.index.name = 'drive-wheels'
 #print(drive_wheels_counts)
 
-#We can repeat the above process for the variable 'engine-location'.
-# engine-location as variable
+#Series to Dataframe conversion
 engine_loc_counts = df['engine-location'].value_counts().to_frame()
 engine_loc_counts.rename(columns={'engine-location': 'value_counts'}, inplace=True)
 engine_loc_counts.index.name = 'engine-location'
