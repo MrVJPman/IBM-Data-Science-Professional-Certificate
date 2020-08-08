@@ -1,0 +1,6 @@
+=TEXT(Y2, "YYYY-MM-DD")&" "&TEXT(AC2, "hh:mm:ss")
+=RIGHT(Z2,4)&"-"&LEFT(Z2, 2)&"-"&MID(Z2,4,2)
+=LEFT(AA2,10)
+ORIGINAL VALUE
+=RIGHT(AA2,11)
+=TEXT(AB2, "HH:MM:SS")
