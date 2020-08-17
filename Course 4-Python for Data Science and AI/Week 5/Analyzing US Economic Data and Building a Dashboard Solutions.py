@@ -49,6 +49,8 @@ title = "Python for Data Science and AI > Week 5 > Analyzing US Economic Data an
 
 file_name = "index.html"
 
+#Call the function make_dashboard , to produce a dashboard. 
+#Assign the parameter values accordingly take a the , take a screen shot of the dashboard and submit it.
 make_dashboard(x=GDP_dataframe[["date"]], gdp_change=GDP_dataframe[["change-current"]] , 
                unemployment=unemployment_dataframe[["unemployment"]], 
                title="Python for Data Science and AI > Week 5 > Analyzing US Economic Data and Building a Dashboard", 
