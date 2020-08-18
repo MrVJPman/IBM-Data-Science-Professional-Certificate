@@ -302,7 +302,7 @@ Question #5):
 #The parameter alpha should be set to 10.
 NewRigeModel=Ridge(alpha=10)
 NewRigeModel.fit(x_train_pr, y_train)
-RigeModel.score(x_test_pr, y_test)
+NewRigeModel.score(x_test_pr, y_test)
 
 
 
