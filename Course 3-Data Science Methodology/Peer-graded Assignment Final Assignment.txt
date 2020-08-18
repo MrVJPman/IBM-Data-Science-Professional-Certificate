@@ -39,7 +39,8 @@ Data Understanding and Preparation
 
 
 Modeling and Evaluation
-
+---Create multiple descriptive models to see if there is an increase in death with an increase in other factors
+---
 
 
 You can always refer to the labs as a reference with describing how you would complete each stage for your problem.
