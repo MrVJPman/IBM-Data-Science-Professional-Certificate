@@ -73,7 +73,7 @@ for n in range(1,Ks):
     neigh = KNeighborsClassifier(n_neighbors = n).fit(X_train,y_train)
     yhat=neigh.predict(X_test)
     mean_acc[n-1] = metrics.accuracy_score(y_test, yhat)
-
+    
     
     std_acc[n-1]=np.std(yhat==y_test)/np.sqrt(yhat.shape[0])
 
