@@ -1,0 +1,5 @@
+git branch branchname #add new branch in master branch locally
+git checkout branchname #switch to branch locally 
+git push --set-upstream origin branchname #creates branch remotely
+git checkout master #switch to master branch
+git merge branchname #merge branches

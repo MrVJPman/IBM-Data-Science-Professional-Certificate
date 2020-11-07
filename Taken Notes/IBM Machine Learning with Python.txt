@@ -1,0 +1,345 @@
+Regression/Estimation : Predicting Contious Values
+Classification : Predicting the item class/category of a case
+Clustering : Finding the structure of data, summarization
+Associations : ASsociating f reqient co-occuring items/events
+Anomaly Detection : dicoering abnormal/unusual cases
+Sequence Mining : predicting nextevents; click stream
+Dimension Reduction: reducing size of data
+recommendation systems: recommending items 
+
+
+Supervised vs Unsupervised : 
+	dealing with labelled vs unlabelled data
+	unsupervised has fewer models and evaluation methods 
+	
+	supervised :
+		classification : predicting discrete class labels/categories
+		regression: predicting continous values 
+	unsupervised:
+		dimension reduction/feature selection : reduced unneeeded data 
+		density estimation : identify structure in data 
+		market basket analysis : find out what you like, then more likely to buy other items
+		clustering : grouping of data 
+		
+Evaluation of Regression
+	Training accuracy : model's accuracy for training data
+		Overfit: model fits to training data well but not other data
+	Out of sample accuracy : model's accuracy for future or non-training data	
+	
+K-fold cross-validation
+	1) split data into many folds [let say 4]
+	2) use 1 fold for testing, rest 3 for training. do this for each of the 4 foldes
+	3) obtain accuracy for each fold
+	4) average the fold
+	
+Error
+	Mean Absolute Error = (1/n)*sum(abs(y_actual-y_model)) 
+	Mean Squared Error = (1/n)*sum((y_actual-y_model)**2)
+	Root Mean Squared Error = ((1/n)*sum((y_actual-y_model)**2))^0.5
+	Relative Absolute Error or Residual Sum of square = sum(abs(y_actual-y_model))/sum(abs(y_actual-y_mean))
+	Relative Squared Error = abs((y_actual-y_model)**2)/abs((y_actual-y_mean)**2)
+	R squared = 1-Relative Squared Error : how close data values are to the fitted regression line
+	
+	We pick which error to use based on type of model, data type, domain of knowledge 
+
+
+Multiple Linear Regression
+	Ordinary Least Squares(takes a long time) :
+
+	Optimization algorithm
+		Gradient Descent : start with random values, then keep changing values until error is minimized
+		
+	Drawbacks
+		Too many independent->overfitting
+		independent categorical variables -> into #s
+		
+Non-linear regression
+	cannot use ordinary least squares
+	correlation coefficient 0.7 > implies linear		
+
+
+k-nearest : classifying cases based on similarity to other cases 
+	1) pick K
+	2) calculate distance of unknown case from all cases
+	3) select the k-observations in the training data that are "nearest" to the unknown data point
+	4) predict the response of the unknown data point using the most popular response value from the K-nearest neighbors
+
+Accuracy for k-nearest
+	jaccard index = intersection(actual_labels, predicted_labels)/Union(actual_labels, predicted_labels) 
+	f1-score : 	2x2 table of True Positives, False Positive, True Negative, False Negatives 
+		Precision = True Positive / (True Positive + False Positive)
+		Recall = True Positive / (True Positive + False Negative)
+		F1-score = 2 * (Precision * Recall) / (Precision+Recall)
+	
+	
+	log loss : used for predicted probability between 0-1
+		log_loss = (y_actual * log(y_hat)) + (1-y_actual) * log (1-y_hat)
+		average_log_loss = -sum(log_loss)/n  
+		closer to 0, the more accurate
+	
+Decision Trees
+	Creating trees based on columns with categorical variables such as
+		age(young/middle-age/senior)
+		gender
+	Tree parts
+		internal node : a test(if statement)
+		branch : result of the test
+		leaf_node : a final classification
+		
+	Algorithm
+		1) choose attribute
+		2) calculate attribute's importance in splitting of data
+		3) split data based on value of the attribute
+		4) repeat 
+
+Building Decision Trees
+	Through recursion
+	pure node: 100% of results for a label
+	entropy : measure of randomness/uncertainity
+		low->less uniform distriubtion->more pure
+		0 entropy = 100% pure
+		1 entropy = each label for data equally distributed
+		Entropy = -p(A)log(p(A))-p(B)log(p(B))
+			p(A) the amount of A divided by amount of A+B
+	information gain:
+		decides which attribute to use to decide best splitting
+		IG = entropy_before_split - weighted_entropy_after_split
+		
+		weighted_entropy_after_split = sum(entropy_n * (number_of_total_rows_for_this_attribute_category/total_number_of_data_rows))  
+
+Logistic Regression: classification algorithm for categorical variables
+	uses 1+ independent variable
+	similar to linear regression but predicts discrete rather than continous values
+	
+	best for 
+		binary data
+		probability
+		when we need a linear decision boundary	
+		discovering the impact of an independent variable
+		
+
+Linear vs Logisitic Regression
+	linear not good at probability of a data belonging to a category
+
+	Sigmoid function = 1 / (1 + e^-theta_transpose*x_vector)
+		Gives probability of a value being big/small
+	
+	Training process
+		1) initialize theta with random #
+		2) Calculate y_hat = sigmoid(e^-theta_transpose*x_vector) for a data row
+		3) compare the output of y_hat with actual output of customer, y, and record it as error
+		4) calculate error of all data rows
+		5) change theta to reduce the cost
+		6) repeat step 2 until cost is low enough
+		
+		change theta via gradient descent
+		we stop when calculated accuracy is good enough
+
+
+Logisitic Regression Training
+	Cost Function(y_predicted, y_actual) = 0.5*(sigma(theta_transpose*X) - y_actual)^2
+	Mean Square error, J(theta) = (1/m) * sum(Cost(y_predicted, y_actual))
+	
+	
+	1) initialize random parameter
+	2) get error : feed cost function with training set
+	3) calculte gradient of cost function
+	4) update weight new values
+		theta_new = theta_old - mu_learning_rate*gradient
+	5) repeat step 2 till cost small enough
+	6) predict new customer X
+
+	minimize cost function
+		->gradient descent: iterative approach using derivative of cost function to change parameter values
+
+
+Support Vector Machine
+	Supervised algorithm that finds a separator
+		1) mapping data to a high-dimension feature space
+		2) finding a separator 
+	kerneling : mapping data to a higher dimensional space so a linearly inseparable dataset is transformed into a linearly separable dataset
+	
+	searches hyperplane that divides data
+		margin 
+		
+	advantage
+		accurate
+		memory efficient
+	disadvantage
+		overfitting ossible : when # of features > # of samples
+		no probability estimation
+		small datasets
+		
+	uses
+		image recoginition
+		hand written digit recognition
+		text category assignment
+		spam detection
+		sentiment analysis
+		gene classification
+		regression
+		outlier detection
+		clustering 
+
+
+k-means clustering
+	finding clustering for unsupervised data
+	clustering vs classification : 
+		clustering predict the value for a row of data
+		classification determine similar data
+		
+	applications
+		retail/marketing : buying patterns, recommendations
+		banking : fraud, customer data
+		insurance : fraud detection, insurance risk
+		publication : categorize news, recommdation
+		medicine : characterize patient behaviour, 
+		biology : identify family ties
+	
+	purpose
+		exploratory data analysis
+		summary generaion
+		outlier detection/noise
+		finding duplications
+		
+	partitioned-based clustering
+		efficient
+		med/large datasets
+		k means, k median, fuzzy c-means
+	hierachical clustering
+		trees
+		small datasets
+		agglomerative, divisive
+	density-based clustering
+		 arbitrary shaped clusters
+		 DBSCAN
+		
+Introduction to k-means
+	minimize intradistance and maximizes inter distance
+	k is number of clusters 
+	
+	algorithm
+		1) initialize k centroids randomly
+		2) calculate distance of each dot to each centroids
+		3) assign each point to each centroid 
+
+	Sum of square error = sum((x_i-Centroid_j)**2)
+		
+		4) compute the centroid for each cluster
+		5) repeat until there are no changes
+			minimal error
+			most dense cluster
+
+K-means clustering
+	external approach : if available, compare to ground truth
+	internal approach : average distance between data points in a cluster
+	k : # of clusters
+	
+	increasing K reduces error 
+	elbow points: rate of accuracy decreases
+	
+Hierarchical Clustering : hierachichy of clusters where each node has a cluster, and each cluster has more nodes. 
+	Dendrograms (trees)
+	Divisive : top-down
+		all observations in a cluster and break it down into smaller pieces
+	Agglomerative : bottom-up
+		more popular
+	
+	Agglomerative Algorithm
+		1) create n clusters, 1 for each data point
+		2) compute the distance Proximity matrix
+		3) Repeat
+			Merge the two closest clusters
+			Update proximity matrix
+		4) repeat until only one cluster remaining
+		
+
+		Clustering data based on distance`
+
+	
+	Cluster distance
+		Single-Linkage Clustering : minimum distance between clusters
+		Complete-Linkage Clustering : maximum distance between clusters
+		Average Linkage Clustering : average distance between clusters
+		Centroid Linkage Clustering : distance between clsuter centroids
+		
+	advan/disadvantage
+		+don't need to specify clusters
+		+easy to implement
+		+dendrogram, easy to see
+		-can't undo
+		-long runtime
+		-hard to identify # of clusters by dendrogram
+		
+	Hierarchical clustering vs k-means
+		k mean is more efficient 
+		hierarchical clustering doesn't require # of clusters to run
+		hierarchical clustering provides more than one partitioning 
+		hierarchical clustering generates same # of clusters
+		
+DBSCAN Clustering [Density-Based Spatial Clustering of Applications with Noise]
+	k means drawback is assigning all data points into a cluster
+	Density Clustering locates high density regions and separates outliers
+	best for spatial context : look for group of weather stations in canada showing the same weather conditions
+	
+	
+	
+	How it works
+		1) Radius  
+		2) Minimal points
+	
+	A data point is Core points if
+		Within 1) radius, there are enough 2) minimal points
+		
+	A data point is a border point if 	
+		Within 1) radius, there are not enough 2) minimal points and reachable to a core point
+
+	outliers
+		both not core and not border
+	
+	Algorithm
+		find the core points
+		find the border points
+		find the outliers
+		Cluster creation : connect the core points to each other via 1 )Radius
+	
+	Benefits
+		1) arbitrary clusters 
+		2) robuse to outliers
+		3) does not require specification # of clusters
+	
+Recommendeder systems
+	content-based : "Show me more of the same of what I'ved like before"
+	collaborative filtering : "tell me what's popular among my neighbors, I might like it"
+	
+	
+	memory-based : Use entire user-data to make recommendation
+		pearson correlation
+		cosine similarity
+		euclidean distance
+	model-based : develops model of users to learn their preferrences
+		regression
+		clustering
+		classificaton
+
+Content-Based Systems
+	Create Weighted Genre Matrix to get user profile
+	Limitation is it doesn't introduce data irrelevant to existing profile
+	
+Collaborative-Based Systems	
+	user-based : based on user's neighbourhood
+	item-based : based on item similarities
+	
+	algorithm
+		find similar index an active user has to other users
+		multiply similarity index matrix by ratings matrix, then divided by sum of similarity matrix
+			more similar users give more score
+		add up all the products
+		
+	item-based :
+		find similar items[not based on context:genre] neighbourhoods and then recommend items in the same neighbourhood to users 
+		
+	challenges:
+		small amount of data
+		diffculty in recommendating new items or for new users
+		number of user/items negatively affects performance

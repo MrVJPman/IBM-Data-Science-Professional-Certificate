@@ -1,0 +1,449 @@
+Python : 
+	pandas, numpy, scipy, matplotlib
+	PyTorch, TensorFlow, Keras, Scikit-Learn
+	
+R:
+	like matlab but more 
+	integrates well with other languages
+	
+SQL:
+	mysql, db2, postgresql, sqlite, oracle db, mariadb, ms sqlserver
+	
+Other languages
+	Java, Scala, C++, JavaScript, Julia, caffe, apache spark 
+	
+REST : Representative state transfer
+
+Data Portals
+	http://datacatalogs.org
+	http://data.un.org
+	https://www.data.gov
+	https://www.europeandataportal.eu/en/
+	https://www.kaggle.com/datasets
+	https://datasetsearch.research.google.com
+	http://cdla.io
+	
+Model Asset Exchange
+	https://developer.ibm.com/exchanges/models
+
+Rstudio
+	getwd()
+	df=read.csv()
+	install.packages("audio")
+	play(sin(1:10000/20))
+	
+	x=rnorm(100)
+	y=rnorm(100, sd=10)
+	df=data.frame(x,y)
+	View(df)
+	
+	librarry(ggplot2)
+	ggplot(df, aes(x=x,y=y)) + geom_point()
+	
+	View(mtcars)
+	my_scatplot <- ggplot(mtcars, aes(x=wt,y=mpg)) + geom_point()
+	my_scatplot + xlab('Weight (x 1000lbs)') + ylab('Miles per Gallon') + geom_smooth()
+
+CRISP-DM
+
+
+Data Science Methodology questions
+	What is the problem we are trying to solve?
+	How can you use data to solve the question?
+	What data do you need to answer the question?
+	Where is the source of the data?
+	Is the data a good representative of the problem to be solved?
+	What additional work is needed to be applied on the data?
+	In what way can the data be visualized to get to the answer?
+	Does the model answer the initial question, or does it need readjustments?
+	Can you put the model into a real life application?
+	can you get constructive stakeholder feedback into answering the question?
+
+Probabilities -> predictive model
+relationships -> descrpitive model
+true/false -> classification
+
+
+
+Data Preparation 
+	invalid values
+	missing data
+	formatting
+	duplicates
+	
+SQL
+	CREATE SCHEMA : Create a schema a table will belong in
+	CREATE TABLE DEFAULT : default value
+	CREATE TABLE CHECK : prevent wrongful insertion
+	SELECT WHEN : replaces if statements if a row/column need to be displayed as a different value
+	
+	WHERE:
+		LIKE : used for string patterns
+		BETWEEN : in a range
+		IN : within a existing set
+		
+	ORDER BY : list in
+	a certain order
+		
+	GROUP BY : 
+		-requires an aggregate/column function call in SELECT
+		-presents function call information "grouped by" argument
+		HAVING
+		
+	AS :
+		name the output for an aggregate/column function 
+		
+	DATE/TIME functions
+	
+semantic constraint : 
+domain constraint : 
+null constraint :
+check constraint : similar to domain constraint
+
+
+
+Seaborn package plots
+	scatter plot : sns.swarmplot()
+		describe()
+		idmmax()
+		at
+	joint plot : sns.jointplot()	
+	boxplot  : sns.boxplot()
+	
+Python File syntax
+	with open("Example.txt", "r") as file: #runs all the indented code  then close it
+	
+	
+Pandas Loading
+	import pandas as pd
+	df = pd.read_csv("file.csv")
+	df = pd.read_excel("file.xlsx")
+	pd.read_sql()
+	pd.read_json()
+	
+
+	df.tail()
+	df.head()
+	
+		
+	songs_frame = pd.DataFrame({"name": bob, "lname": kong, "phone": 647-855-7430}) #Convers dictionary into data frame
+	
+	x = df[["length"]] #returns a dataframe showing all rows under the "length" column
+	y = df[["artist", "length", "game"]] #returns a dataframe showing all rows under the "artist", "length", "game" column
+	
+	df.loc #accepts 1) row index and 2) column attribute
+	df.iloc #accepts 1) row index and 2) column index
+	df.ix #accepts row/column attributes, then indexes
+	
+	df.loc[0:2, 'Artist':'Released'] #does data frame splicing
+	df.loc[0:2, 0:3] #does data frame splicing
+	
+Pandas Using/Saving
+	df["Released"] #only 1 column and all the rows 
+	df["Released"].unique() #only 1 column and all the rows with unique values
+	df["Released"]>=1980 #only 1 column and rows with value of True/False
+	d1=df[df["Released]>=1980] #new data_frame
+	
+	df["symboling"] = df["symboling"] + 1 #adds one to every value under the "symboling" column
+ 	
+	
+	df.dtypes()
+	df.describe()
+	df.info()
+	
+	df1.to_csv("file.csv")
+	df1.to_json()
+	df1.to_excel()
+	df1.to_sql()
+	df.std()
+	
+	df.dropna(subset=["price"], axis=0, inplace=True) #remove all the NaN rows for column "price" . DOES NOT CHANGE DATA FRAME
+	mean = df["normalized-losses"].mean()
+	df.replace(np.nan, mean)
+
+	df["city-mpg"]=235/df["city-mpg"]
+	df.rename(columns={"city_mpg": "city-L/100km}, inplace=True)
+
+	df["price"] = df["price"].astype("int")
+	df[["price"]] = df[["price"]].astype("float")
+
+	df.columns=headers #headers is a list
+	
+	pd.get_dummies() #convert categorical data to dummy data
+	pd.get_dummies(df["fuel"]) #generates a number
+	
+	
+1D-Numpy
+	import numpy as np
+	a = np.array([0,1,2,3,4]
+	a.dtype
+	a.size
+	a.ndim #number of array dimensions/ rank
+	a.shape #size of the array dimensions
+	
+	u=np.array([1,0])
+	v=np.array([0,-1])
+	z=u-v
+	z=2*z
+	z=u*v
+	np.dot(u, v)#dot product
+	z=u+1 #adds 1 to all array values
+	
+	a=np.array([1,-1,1,-1])
+	a.mean()
+	a.max()
+
+	np.pi #pi number
+	x=np.array([0, np.pi/2, np.pi])
+	y=np.sin(x) #sine function
+		
+	np.linspace() #evenly spaced number over an interval
+	
+	import matplotlib.pyplot as plt
+	plt.plot(x, y)
+
+2D-Numpy
+	A = np.array(a)	
+	A.ndim
+	A.shape #row and then columns
+	
+	X = np.array([[1,0], [0,1]])
+	Y = np.array([[2,1], [1,2]])
+	Z = X+Y	
+	Z = 2*Y
+	Z = X * Y
+	Z = np.dot(X, Y)
+
+Other
+	df_warrior[["id"]].values [0][0] #need double square brackets for id
+	games[games["matchup"]=="gsw vs tor"] #matchup column and only "gsw" vs tor" values
+	
+	.get_data_frame() 
+	
+	#matplotlib.pyplot
+		.subplots() 
+		.plot() #draw a graph
+		.legend() #labels on a graph
+		.show() #show the graph
+		
+DB_API
+	Connection
+		connection = connect()
+		cursor = connection.cursor()
+		cursor.execute("select * from my table")
+		results=cursor.fetchall()
+		cursor.close()
+		connection.close()
+		
+		commit()
+		rollback()
+
+
+Data Formatting: changing one data to another
+	N.Y-> New York
+
+Data Normalization [ ensuring they are in a certain range]
+	x_new = x_old/x_max [simple feature scaling]
+	x_new = (x_old-x_min)/(x_max-x_min) [min-max]
+	x_new = (x_old-mean)/standard deviaton [Z-score]
+	
+bin : setting numbers as categories [1000 -> low]
+	bins = np.linspace(min(df["price"]), max(df["price"]), 4) #4 categories 
+	group_names= ["low", "med", "high"]
+	df[price-binned"] = pd.cut(df["price"], bins, labels=group_names, include_lowest=True)
+	
+Data Analysis
+	Descriptive Analysis : find more info about such as max, std, min, # of data, medijum, upper quartile, lower quartile
+		drive_wheels_counts=df["drive-wheels"].value_counts() #
+		drive_wheels_counts.rename(columns={"drive-wheels":"value_counnts", inplace=True})
+		drive_wheels_counts.index.name="drive-wheels"
+		
+		sns.boxplot(x="drive-wheels", y="price", data=df)
+		
+		y=df["price"]
+		x=df["engine-size"]
+		plt.scatter(x, y)
+		plt.title("scatter plot of engine size vs price")
+		plt.xlabel("engine size")
+		plt.ylabel("price")
+		
+	Grouping
+		df_test = df[["drive-wheels", "body-style", "price"]]
+		df_grp = df_test.groupby(["drive-wheels", "body-style"], as_index=False).mean()
+		
+		df_pivot = df_grp.pivot(index = "drive-wheels", columns="body-style")
+		pivot()
+		
+		heatmaps
+			plt.pcolor(df_pivot, cmap="RdBu")
+			plt.colorbar()
+			plt.show()
+
+	Correlation
+		sns.regplot(x="engine-size", y="price", data=df)
+		plt.ylim(0, )
+		
+		correlation coefficient:
+			1 positive relationship
+			-1 negative relationship
+			0 no relationship
+		p-value :
+			<0.0001 : strong
+			<0.05 : moderate certainity
+			<0.1 : weak certainity
+			>0.1: no certainity
+			
+		pearson_coef, p_value = stats.pearsonr(df["horsepower"], df["price])
+		
+	ANOVA : analysis of variance
+		
+		high F, low P
+		
+		df_anova = df[["make", "price"]]
+		grouped_anova = df_anova.groupby(["make"])
+		anova_results_l=stats.f_oneway(grouped_anova.get_group("honda")["price"], grouped_anova.get_group("subaru")["price"])
+		
+LINEAR MODELS
+	from sklearn.linear_model import LinearRegression
+	lm=LinearRegression()
+	X=df[["highway-mpg]]
+	Y=df["price"]
+	lm.fit(X, Y) #fit model
+	Yhat = lm.predict(X) #predict 
+	lm.intercept_ #intercept
+	lm.coef_ #slope
+	
+	
+	Z=df[["horsepower", "curb-weight", "engine-size", "highway-mpg"]]
+	lm.fit(Z, df["price"])
+	Yhat = lm.predict(Z)
+	
+REGRESSION PLOTS
+	import seaborn as sns
+	sns.regplot(x="highway-mpg", y="price", data=df)
+	plot.ylim(0, )
+
+RESIDUAL PLOT : used to check if linear is correct or not
+	sns.residplot(df["highway-mpg"], df["price"])
+
+DISTRIBUTION PLOT
+	ax1 = sns.distplot(df["price"], hist=False, color="r", label="Actual Value")
+	sns.distplot(Yhat, hist=False, color="b", label="Fitted Values", ax=ax1)
+
+POLYNOMIAL REGRESSION
+	f=np.polyfit(x, y, 3) #3rd order
+	p=np.poly1d(f)
+	print(p)
+
+	from sklearn.preprocessing import PolynomialFeatures
+	pr=PolynomialFeatures(degree=2, include_bias=False)
+	
+	pr=PolynomialFeatures(degree=2) #second order polynominal transform object
+	pr.fit_transform([1,2],include_bias=False)
+
+	#Processing : normalize feature
+	from sklearn.preprocessing import StandardScaler
+	SCALE=StandardScaler()
+	SCALE.fit(x_data[["horsepower", "highway-mpg"]])
+	x_scale=SCALE.transform(x_data[["horsepower", "highway-mpg"]])
+	
+	#pipeline : normalization + transform
+	from sklearn.preprocessing import PolynomialFeatures
+	from sklearn.linear_model import LinearRegression
+	from sklearn.preprocessing import StandardScaler
+	from sklearn.pipeline import Pipeline
+	
+	Input = [("scale"), StandardScaler()), ("polynomial", PolunomialFeatures(degree=2)_, ("mode", LinearRegressio())))
+	Pipe=Pipeline(Input)
+	Pipe.fit(df[["horsepower", "curb-weight", "engine-size", "highway-mpg"]], y)
+	yhat = Pipe.predict(X[["horsepower", "curb-weight", "engine-size", "highway-mpg"]])	
+	
+In-Sample Evaluation
+	#mean squared error
+	
+	from sklearn.metrics import mean_squared_error
+	mean_squared_error(df["price"], Y_predict_simple_fit)
+		
+	#R-squared : coefficient of determination
+	
+	X=df[["highway-mpg"]]
+	Y=df[["price"]
+	lm.fit(X,Y)
+	lm.score(X,Y)
+	
+Prediction/Decision-making
+
+	lm.fit(df["highway-mpg"], df["prices"])
+	lm.predict(np.array(30.0).reshape(-1, 1)) #dict car wth 30highway-mpg
+	lm.coef_ #coefficients for price=(highway-mpg*lm.coef_)+lm.intersect
+	
+	import numpy as np
+	new_input = np.arange(1, 101, 1).reshape(-1, 1)
+	yhat = lm.predict(new_input)
+	
+
+Training and Testing
+	#splitting data between training/testing
+	from sklearn.cross_validation import train_test_split
+	x_train, x_test, y_train, y_test = train_test_split(x_data, y_data, test_size=0.3,random_state=0)
+	
+Cross-Validation
+	from sklearn.model_selection import cross_val_score
+	scores=cross_val_score(lr, x_data, y_data, cv=3) #cv is number of partitions/folds
+	np.mean(scores) ->R^2 score values
+	
+	from sklearn.model_selection import cross_val_predict
+	yhat = cross_val_predict(lr23, x_data, y_data, cv=3) #returns the prediction that was obtained for each element when it was in the test set
+  	
+Generalization Performance : Geerazliation Error is measure of how well our data does at predicting previously unseen data
+
+Accuracy vs Precision
+	acccuracy : how values are relative to the "correct" value
+	precision : how values are relative to each other
+	
+Model Selection, Underfitting/Overfitting
+	underfitting : model is too simple to fit the data
+	overfitting : models fit the data perfectly, but not the actual function
+	Low order/High Test/Training Error :  underfitting
+	High order/High Test Error/Low Training Error :  overfitting
+
+
+	Rsqu_test=[]
+	order=[1,2,3,4]
+	for n in order:
+		pr=PolynomialFeatures(degree=n)
+		x_train_pr = pr.fit_transform(x_train[["horsepower"]])
+		x_test_pr = pr.fit_transform(x_test[["horsepower"]])
+		lr.fit(x_train_pr, y_train)
+		Rsqu_test.append(lr.score(x_test_pr, y_test))
+		
+Ridge/Regression : using alpha to adjust values in polynomial value
+	from sklearn.linear_model import Ridge/Regression
+	RidgeModel = Ridge(alpha=0.1)
+	RidgeModel.fit(X, y)
+	Yhat =  RidgeModel.predict(X)
+	
+Grid-Search
+	hyperparameter : alpha
+	
+	from sklearn.linear_model import Ridge
+	from sklearn.model_selection import GridSearchCV
+	parameters = [{"alpha" : [0.001, 0.1, 1, 10, 100, 1000, 10000, 100000, 100000]}]
+	RR=Ridge()
+	Grid1 = GridSearchCV(RR, parameters1, cv=4) #four folds
+	Grid1.fit(x_data[["horsepower", "curb-weight", "engine-size", "highway-mpg"]], y_data)
+	Grid1.best_estimator_
+	scores1 = Grid1.cv_results_
+	scores["mean_test_score"]
+	
+	from sklearn.linear_model import Ridge
+	from sklearn.model_selection import GridSearchCV
+	parameters2 = [{"alpha" : [1, 10, 100, 1000], "normalize" : [True, False]}]
+	RR=Ridge()
+	Grid1 = GridSearchCV(RR, parameters1, cv=4) #four folds
+	Grid1.fit(x_data[["horsepower", "curb-weight", "engine-size", "highway-mpg"]], y_data)
+	Grid1.best_estimator_
+	scores1 = Grid1.cv_results_
+	
+	for param, mean_val, mean_test in zip(scores["params"], scores["mean_test_score"], scores["mean_train_score"]) :
+		print(param, "R^2 on test data:", mean_val, "R^@ on train data:", mean_test)
