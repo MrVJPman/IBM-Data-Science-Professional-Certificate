@@ -1,0 +1,229 @@
+Matplotlib : Scripting Layer>Artist Layer>Backend Layer
+
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvasAgg
+from matplotlib.figure import FigureCanvasAgg
+fig = Figure()
+canvas = FigureCanvas(fig)
+
+x=np.random.randn(10000) #Create 10000 random numbers
+
+ax=fig.add_subplot(111) #Create an axes artist
+ax.hist(x, 100) #generate a histogram of the 10000 numbers
+
+ax.set_title("Normal distribution with $\mu=0, sigma=1$")
+fig.savefig("matplotlib_histogram.png")
+
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+x=np.random.randn(10000)
+plt.hist(x, 100)
+plt.title("Normal distribution with $\mu=0, sigma=1$")
+plt.savefig("matplotlib_histogram.png")
+plt.show()
+
+==================
+
+
+%matplotlib inline #forces diagram to be in the browser
+
+
+import matplotlib as plt
+plt.plot(5, 5, "o")
+plt.show()
+
+%matplotlib notebook
+import matplotlib as plt
+plt.plot(5, 5, "o")
+plt.ylabel("Y")
+plt.xlabel("X")
+plt.title("Plotting Example")
+plt.show()
+
+india_china_df.plot(kind="line")
+india_china_df["India"].plot(kind="hist")
+
+
+=====================
+
+
+import numpy as np
+import pandas as pd
+from __future__ import print_function
+
+!pip install xlrd
+print("xlrd installed")
+
+df_can = pd.read_excel("https://ibm.box.com/shared/static/123.xlsx",
+	sheetname = "Canada by Citizenship",
+	skuprows = range(20),
+	skip_footer = 2)
+
+df_can.head()
+
+======================
+
+#line plots best for contious datasets
+
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+
+years = list(map(str, range(1980, 2014)))
+df_canada.loc["Haiti", years].plot(kind="line")
+plt.title("Immigration from Haiti")
+plt.ylabel("Number of immigrants")
+plt.xlabel("Years")
+
+plt.show()
+
+======================
+
+years = list(map(str, range(1980, 2014)))
+
+df_canada.sort_values(["Total"], ascending=False, axis=0, inplace=True) #column
+
+df_top5 = df_canada.head()
+df_top5 = df_top5[years].transpose()
+
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+
+df_top5.plot(kind="area") #Area Plots
+plt.title("Immigration trend of top 5 countries")
+plt.ylabel("Number of immigrants")
+plt.xlabel("Years")
+
+plt.show()	
+
+======================
+
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import numpy as np
+
+count, bin_edges = np.histogram(df_canada["2013"]) #10 bins of equal width
+
+df_canada["2013"].plot(kind="hist", xticks = bin_edges) #Histogram
+
+plt.title("Histogram of Immigration from 195 countries in 2013")
+plt.ylabel("Number of countries")
+plt.xlabel("Number of immigrants")
+
+plt.show()
+
+======================
+
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+
+years = list(map(str, range(1980, 2014)))
+
+df_iceland = df_canada.loc["Iceland", years]
+
+df_iceland.plot(kind="bar") #bar graph
+
+plt.title("Icelandic immigrants to Canada from 1980 to 2013")
+plt.ylabel("Year")
+plt.xlabel("Number of immigrants")
+
+plt.show()
+
+======================
+
+df_contients = df_canada.groupby("Continent", axis=0).sum()
+
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+
+df_contients["Total"].plot(kind="pie")  #pie graph
+plt.title("Immigration to Canada by Contient [1980-2013]")
+plt.show()
+
+
+======================
+
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+
+years = list(map(str, range(1980, 2014)))
+df_japan = df_canada.loc[["Japan"], years].transpose()
+
+df_japan.plot(kind="box") #box plot
+
+plt.title("Box plot of Japanese Immigrants from 1980-2013")
+plt.ylabel("Number of Immigrants")
+
+plt.show()
+
+======================
+
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+
+df_total.plot(kind="scatter", x="year", y="total") #scatter plot
+#scatter plots also need the x and y parameters
+
+plt.title("Total immigrant population to canada from 1980-2013")
+plt.xlabel("year")
+plt.ylabel("number  of immigrants")
+
+plt.show()
+
+======================
+
+import seaborn as sns
+
+ax=sns.regplot(x="year", y="total", data=df_tot, color="green", marker = "+") #regression plot
+
+======================
+
+Folium
+
+world_map = folium.Map(location=[56.130, -106.35], zoom_start = 4, tiles="Stamen Terrain")
+#zoom_start is initial zoom level 
+#tiles is the appearance of the map
+world_map 
+
+#create a featuregroup 
+ontario = folium.map.FeatureGroup()
+
+#style the feature groupby, [51.25, -85.32] is center of ontario
+ontario.add_child(
+	folium.features.CircleMarker(
+	[51.25,-85.32], radius = 5,
+	color = "red", fill_color = "Red"
+	)
+)
+#add the feature group to the map
+canada_map.add_child(ontario)
+
+# label the marker	
+folium.Marker([51.25, -85.32],
+	popup="Ontario").add_to(canada_map)
+
+#display map
+canada_map	
+
+=========================
+
+Choropleth Map
+
+world_map = foliu,Map(
+	zoom_start=2,
+	tiles="Mapbox Bright"
+)
+
+world_geo = "world_countries.json"
+
+world_map.choropleth(
+	geo_path=world_geo,
+	data=df_canada,
+	columns=["Country", "Total"],
+	key_on="feature.properties.name",
+	fill_color="YlOrRd",
+	legend_name="Immigration to Canada"
+)
+
+
+world_map
